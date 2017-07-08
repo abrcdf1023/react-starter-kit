@@ -19,39 +19,35 @@ module.exports = {
 	},
 	module: {
 		rules: [{
-				test: /\.js$/,
-				exclude: /node_modules/,
-				use: {
-					loader: 'babel-loader',
+			test: /\.js$/,
+			exclude: /node_modules/,
+			use: {
+				loader: 'babel-loader',
+			},
+		}, {
+			test: /\.scss$/,
+			use: [{
+				loader: 'style-loader',
+			}, {
+				loader: 'css-loader',
+				options: {
+					sourceMap: true,
 				},
-			},
-			{
-				test: /\.scss$/,
-				use: [{
-					loader: 'style-loader',
-				}, {
-					loader: 'css-loader',
-					options: {
-						sourceMap: true,
-					},
-				}, {
-					loader: 'resolve-url-loader',
-				}, {
-					loader: 'sass-loader',
-					options: {
-						sourceMap: true,
-					},
-				}],
-			},
-			{
-				test: /\.(ttf|eot|svg|woff(2)?)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-				loader: 'file-loader?name=app/fonts/[name].[ext]',
-			},
-			{
-				test: /\.(png|jpg)$/,
-				loader: 'file-loader?name=app/images/background/[name].[ext]',
-			},
-		],
+			}, {
+				loader: 'resolve-url-loader',
+			}, {
+				loader: 'sass-loader',
+				options: {
+					sourceMap: true,
+				},
+			}],
+		}, {
+			test: /\.(ttf|eot|svg|woff(2)?)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+			loader: 'file-loader?name=app/fonts/[name].[ext]',
+		}, {
+			test: /\.(png|jpg)$/,
+			loader: 'file-loader?name=app/images/background/[name].[ext]',
+		}],
 	},
 	resolve: {
 		modules: [
