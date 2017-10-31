@@ -7,8 +7,8 @@ import './style';
 
 export default () => (
 	<ul className="header">
-		<li className="header__link"><Link to="/">Home</Link></li>
-		<li className="header__link"><Link to="/page1">Page1</Link></li>
-		<li className="header__link"><Link to="/page2">Page2</Link></li>
+		<li className="header__link"><Link href="/" to="/">Home</Link></li>
+		<li className="header__link"><Link href="page1" to="/page1">Page1</Link></li>
+		<li className="header__link"><Link href="page2" to="/page2">Page2</Link></li>
 	</ul>
 );

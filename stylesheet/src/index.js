@@ -10,18 +10,19 @@ ReactDOM.render(
 	<AppContainer>
 		<App />
 	</AppContainer>,
-  document.getElementById('root'),
+	document.getElementById('root'),
 );
 
 // Hot Module Replacement API
 if (module.hot) {
 	module.hot.accept('scenes', () => {
+		/* eslint-disable global-require */
 		const NextApp = require('scenes').default;
 		ReactDOM.render(
 			<AppContainer>
 				<NextApp />
 			</AppContainer>,
-      document.getElementById('root'),
-    );
+			document.getElementById('root'),
+		);
 	});
 }
