@@ -1,15 +1,26 @@
 'use strict'
+const utils = require('./utils');
 const webpack = require('webpack');
+const config = require('../config');
+const merge = require('webpack-merge');
 const { resolve,posix } = require('path');
+
+const baseWebpackConfig = require('./webpack.base.config');
 
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin');
+const portfinder = require('portfinder');
 
-const merge = require('webpack-merge');
-const config = require('../config');
-const baseWebpackConfig = require('./webpack.base.config');
-
-module.exports = merge(baseWebpackConfig, {
+const devWebpackConfig = merge(baseWebpackConfig, {
+	entry: {
+		app: [
+			'babel-polyfill',
+			'isomorphic-fetch',
+			'react-hot-loader/patch',
+			'./src/js/index.js',
+		],
+	},
 	module: {
 		rules:[{
 			test: /\.scss$/,
@@ -31,27 +42,28 @@ module.exports = merge(baseWebpackConfig, {
 		}]
 	},
 	devtool: config.dev.devtool,
-	entry: {
-		app: [
-			'babel-polyfill',
-			'isomorphic-fetch',
-			'react-hot-loader/patch',
-			'./src/js/index.js',
-		],
-	},
 	devServer: {
 		clientLogLevel: 'warning',
-		contentBase: false,
-		host: 'localhost',
-		hot: true,
-		proxy: config.dev.proxyTable,
-		publicPath: config.dev.assetsPublicPath,
 		historyApiFallback: {
 			rewrites: [
 				{ from: /.*/, to: posix.join(config.dev.assetsPublicPath, 'index.html') },
       ],
 		},
+		hot: true,
+		contentBase: false,
+		compress: true,
+		host: 'localhost',
 		port: config.dev.port,
+		open: config.dev.autoOpenBrowser,
+		overlay: config.dev.errorOverlay
+      ? { warnings: false, errors: true }
+      : false,
+		publicPath: config.dev.assetsPublicPath,
+		proxy: config.dev.proxyTable,
+		quiet: true, // necessary for FriendlyErrorsPlugin
+		watchOptions: {
+      poll: config.dev.poll,
+    }
 	},
 	plugins: [
 		// define global values
@@ -79,3 +91,29 @@ module.exports = merge(baseWebpackConfig, {
     ])
 	],
 });
+
+module.exports = new Promise((resolve, reject) => {
+  portfinder.basePort = process.env.PORT || config.dev.port
+  portfinder.getPort((err, port) => {
+    if (err) {
+      reject(err)
+    } else {
+      // publish the new Port, necessary for e2e tests
+      process.env.PORT = port
+      // add port to devServer config
+      devWebpackConfig.devServer.port = port
+
+      // Add FriendlyErrorsPlugin
+      devWebpackConfig.plugins.push(new FriendlyErrorsPlugin({
+        compilationSuccessInfo: {
+          messages: [`Your application is running here: http://${devWebpackConfig.devServer.host}:${port}`],
+        },
+        onErrors: config.dev.notifyOnErrors
+        ? utils.createNotifierCallback()
+        : undefined
+      }))
+
+      resolve(devWebpackConfig)
+    }
+  })
+})

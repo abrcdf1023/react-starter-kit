@@ -6,14 +6,21 @@ const merge = require('webpack-merge');
 
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const autoprefixer = require('autoprefixer');
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const config = require('../config');
 const baseWebpackConfig = require('./webpack.base.config');
 
-module.exports = merge(baseWebpackConfig, {
+const webpackConfig = merge(baseWebpackConfig, {
+	entry: {
+		app: [
+			'babel-polyfill',
+			'isomorphic-fetch',
+			'./src/js/index.js',
+		],
+	},
 	module: {
 		rules: [{
 			test: /\.scss$/,
@@ -43,13 +50,7 @@ module.exports = merge(baseWebpackConfig, {
 			}),
 		}]
 	},
-	entry: {
-		app: [
-			'babel-polyfill',
-			'isomorphic-fetch',
-			'./src/js/index.js',
-		],
-	},
+	devtool: config.build.productionSourceMap ? config.build.devtool : false,
 	output: {
     path: config.build.assetsRoot,
     filename: utils.assetsPath('js/[name].[chunkhash].js'),
@@ -62,6 +63,31 @@ module.exports = merge(baseWebpackConfig, {
 				NODE_ENV: "'production'",
 			},
 		}),
+		new webpack.optimize.UglifyJsPlugin({
+			uglifyOptions: {
+        compress: {
+          warnings: false
+        }
+      },
+      sourceMap: config.build.productionSourceMap,
+      parallel: true
+		}),
+		// extract css into its own file
+		new ExtractTextPlugin({
+			filename: utils.assetsPath('css/[name].[contenthash].css'),
+			// Setting the following option to `false` will not extract CSS from codesplit chunks.
+      // Their CSS will instead be inserted dynamically with style-loader when the codesplit chunk has been loaded by webpack.
+      // It's currently set to `true` because we are seeing that sourcemaps are included in the codesplit bundle as well when it's `false`, 
+      // increasing file size: https://github.com/vuejs-templates/webpack/issues/1110
+      allChunks: true,
+		}),
+		// Compress extracted CSS. We are using this plugin so that possible
+    // duplicated CSS from different components can be deduped.
+    new OptimizeCSSPlugin({
+      cssProcessorOptions: config.build.productionSourceMap
+        ? { safe: true, map: { inline: false } }
+        : { safe: true }
+    }),
 		// generate dist index.html with correct asset hash for caching.
     // you can customize output by editing /index.html
     // see https://github.com/ampedandwired/html-webpack-plugin
@@ -80,7 +106,9 @@ module.exports = merge(baseWebpackConfig, {
       chunksSortMode: 'dependency'
 		}),
 		// keep module.id stable when vendor modules does not change
-    new webpack.HashedModuleIdsPlugin(),
+		new webpack.HashedModuleIdsPlugin(),
+		// enable scope hoisting
+    new webpack.optimize.ModuleConcatenationPlugin(),
 		// build optimization plugins
 		new webpack.optimize.CommonsChunkPlugin({
 			name: 'vendor',
@@ -110,10 +138,6 @@ module.exports = merge(baseWebpackConfig, {
       children: true,
       minChunks: 3
     }),
-		new ExtractTextPlugin({
-      filename: utils.assetsPath('css/[name].[contenthash].css'),
-      allChunks: true,
-		}),
 		// copy custom static assets
     new CopyWebpackPlugin([
       {
@@ -122,18 +146,12 @@ module.exports = merge(baseWebpackConfig, {
         ignore: ['.*']
       }
     ]),
-		new webpack.optimize.OccurrenceOrderPlugin(),
-		new webpack.optimize.UglifyJsPlugin({
-			sourceMap: false,
-			// Compression specific options
-			compress: {
-				// remove warnings
-				warnings: false,
-				// Drop console statements
-				drop_console: true,
-			},
-		}),
-		// webpack enhancement plugins
-		new BundleAnalyzerPlugin(),
 	],
 });
+
+if (config.build.bundleAnalyzerReport) {
+  const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
+  webpackConfig.plugins.push(new BundleAnalyzerPlugin())
+}
+
+module.exports = webpackConfig;
