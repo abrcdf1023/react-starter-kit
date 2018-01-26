@@ -3,16 +3,16 @@ const { resolve } = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const autoprefixer = require('autoprefixer');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const merge = require('webpack-merge');
 const config = require('../config');
-const baseWebpackConfig = require('./webpack.base.conf');
+const baseWebpackConfig = require('./webpack.base.config');
 
 module.exports = merge(baseWebpackConfig, {
 	module: {
 		rules: [{
 			test: /\.scss$/,
-			include: resolve(__dirname, 'src/scss'),
 			use: ExtractTextPlugin.extract({
 				fallback: 'style-loader',
 				use: [{
@@ -43,7 +43,7 @@ module.exports = merge(baseWebpackConfig, {
 		main: [
 			'babel-polyfill',
 			'isomorphic-fetch',
-			'src/js/index.js',
+			'./src/js/index.js',
 		],
 	},
 	output: {
@@ -73,7 +73,7 @@ module.exports = merge(baseWebpackConfig, {
 		// copy custom static assets
     new CopyWebpackPlugin([
       {
-        from: path.resolve(__dirname, '../static'),
+        from: resolve(__dirname, '../static'),
         to: config.build.assetsSubDirectory,
         ignore: ['.*']
       }

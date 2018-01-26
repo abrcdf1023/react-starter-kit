@@ -8,7 +8,7 @@ module.exports = {
 		assetsSubDirectory: 'static',
 		assetsPublicPath: '/',
 		proxyTable: { // proxy URLs to backend development server
-			'/': 'http://localhost:9080',
+			// '/': 'http://localhost:9080',
 		},
 
 		// Various Dev Server settings
