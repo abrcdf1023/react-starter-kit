@@ -1,26 +1,25 @@
 const webpack = require('webpack');
-const {
-	resolve
-} = require('path');
+const { resolve } = require('path');
 
 module.exports = {
-	devtool: 'eval',
+	devtool: 'source-map',
 	entry: {
 		main: [
 			'babel-polyfill',
+			'isomorphic-fetch',
 			'react-hot-loader/patch',
-			'./stylesheet/src/index.js',
+			'./src/js/index.js',
 		],
 	},
 	output: {
-		filename: 'bundle.js',
-		path: resolve(__dirname, 'stylesheet/dist/js'),
 		publicPath: 'http://localhost:7080/',
+		filename: '[name].js',
+		pathinfo: true,
 	},
 	module: {
 		rules: [{
 			test: /\.js$/,
-			exclude: /node_modules/,
+			include: [resolve(__dirname, 'src/js'), resolve(__dirname, 'test')],
 			use: {
 				loader: 'babel-loader',
 			},
@@ -43,15 +42,29 @@ module.exports = {
 			}],
 		}, {
 			test: /\.(ttf|eot|svg|woff(2)?)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-			loader: 'file-loader?name=app/fonts/[name].[ext]',
+			include: resolve(__dirname, 'dist/assets/fonts'),
+			use: {
+				loader: 'file-loader',
+				options: {
+					name: '[name].[ext]',
+					outputPath: 'assets/fonts/',
+				},
+			},
 		}, {
-			test: /\.(png|jpg)$/,
-			loader: 'file-loader?name=app/images/background/[name].[ext]',
+			test: /\.(png|jpg|svg|gif)$/,
+			include: resolve(__dirname, 'dist/assets/images'),
+			use: {
+				loader: 'file-loader',
+				options: {
+					name: '[name].[ext]',
+					outputPath: 'assets/images/',
+				},
+			},
 		}],
 	},
 	resolve: {
 		modules: [
-			resolve('./stylesheet/src'),
+			resolve('src'),
 			resolve('node_modules'),
 		],
 		extensions: ['.js', '.scss'],
@@ -61,10 +74,13 @@ module.exports = {
 		new webpack.NoEmitOnErrorsPlugin(),
 	],
 	devServer: {
-		contentBase: './stylesheet/dist',
-		publicPath: 'http://localhost:7080/',
+		proxy: { // proxy URLs to backend development server
+			'/': 'http://localhost:9080',
+		},
+		contentBase: './dist',
+		publicPath: 'http://localhost:7081/',
 		historyApiFallback: true,
-		port: 7080,
+		port: 7081,
 		hot: true,
 		noInfo: true,
 	},

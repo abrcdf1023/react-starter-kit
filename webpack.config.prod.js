@@ -23,7 +23,13 @@ const cleanOptions = {
 };
 
 module.exports = {
-	entry: 'src/js/index.js',
+	entry: {
+		main: [
+			'babel-polyfill',
+			'isomorphic-fetch',
+			'./src/js/index.js',
+		],
+	},
 	output: {
 		filename: '[name].[chunkhash].js',
 		path: resolve(__dirname, 'dist/js'),
