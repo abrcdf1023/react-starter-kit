@@ -1,7 +1,7 @@
 # react-startkit
 react startkit with scss redux router
 
-Simple React startkit with react hot loader,react router dom
+Simple React startkit with hot loader and router
 
 To do list
 
