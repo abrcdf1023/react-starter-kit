@@ -1,13 +1,15 @@
 'use strict'
 const webpack = require('webpack');
 const { resolve, join } = require('path');
+const utils = require('./utils')
+const merge = require('webpack-merge');
+
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const autoprefixer = require('autoprefixer');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-const merge = require('webpack-merge');
 const config = require('../config');
 const baseWebpackConfig = require('./webpack.base.config');
 
@@ -49,14 +51,15 @@ module.exports = merge(baseWebpackConfig, {
 		],
 	},
 	output: {
-		path: config.build.assetsRoot,
-		filename: 'js/[name].[chunkhash].js',
-	},
+    path: config.build.assetsRoot,
+    filename: utils.assetsPath('js/[name].[chunkhash].js'),
+    chunkFilename: utils.assetsPath('js/[id].[chunkhash].js')
+  },
 	plugins: [
 		// define global values
 		new webpack.DefinePlugin({
 			'process.env': {
-				NODE_ENV: JSON.stringify('production'),
+				NODE_ENV: "'production'",
 			},
 		}),
 		// generate dist index.html with correct asset hash for caching.
@@ -108,7 +111,7 @@ module.exports = merge(baseWebpackConfig, {
       minChunks: 3
     }),
 		new ExtractTextPlugin({
-      filename: 'css/[name].[contenthash].css',
+      filename: utils.assetsPath('css/[name].[contenthash].css'),
       allChunks: true,
 		}),
 		// copy custom static assets

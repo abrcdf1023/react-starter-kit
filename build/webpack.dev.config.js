@@ -39,10 +39,6 @@ module.exports = merge(baseWebpackConfig, {
 			'./src/js/index.js',
 		],
 	},
-	output: {
-		publicPath: config.dev.assetsPublicPath,
-		filename: '[name].js',
-	},
 	devServer: {
 		clientLogLevel: 'warning',
 		contentBase: false,
@@ -58,6 +54,12 @@ module.exports = merge(baseWebpackConfig, {
 		port: config.dev.port,
 	},
 	plugins: [
+		// define global values
+		new webpack.DefinePlugin({
+			'process.env': {
+				NODE_ENV: "'development'",
+			},
+		}),
 		new webpack.HotModuleReplacementPlugin(),
 		new webpack.NamedModulesPlugin(), // HMR shows correct file names in console on update.
 		new webpack.NoEmitOnErrorsPlugin(),
