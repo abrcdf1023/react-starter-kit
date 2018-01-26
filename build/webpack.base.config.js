@@ -7,11 +7,11 @@ const config = require('../config');
 module.exports = {
 	context: resolve(__dirname, '../'),
 	output: {
-    path: config.build.assetsRoot,
-    filename: '[name].js',
-    publicPath: process.env.NODE_ENV === 'production'
-      ? config.build.assetsPublicPath
-      : config.dev.assetsPublicPath
+		path: config.build.assetsRoot,
+		filename: '[name].js',
+		publicPath: process.env.NODE_ENV === 'production'
+			? config.build.assetsPublicPath
+			: config.dev.assetsPublicPath
 	},
 	resolve: {
 		extensions: ['.js', '.jsx'],
@@ -45,12 +45,12 @@ module.exports = {
 		}],
 	},
 	node: {
-    // prevent webpack from injecting mocks to Node native modules
-    // that does not make sense for the client
-    dgram: 'empty',
-    fs: 'empty',
-    net: 'empty',
-    tls: 'empty',
-    child_process: 'empty'
-  }
+		// prevent webpack from injecting mocks to Node native modules
+		// that does not make sense for the client
+		dgram: 'empty',
+		fs: 'empty',
+		net: 'empty',
+		tls: 'empty',
+		child_process: 'empty'
+	}
 }

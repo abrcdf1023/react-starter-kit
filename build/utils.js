@@ -3,27 +3,27 @@ const config = require('../config')
 const packageConfig = require('../package.json')
 
 exports.assetsPath = function (_path) {
-  const assetsSubDirectory = process.env.NODE_ENV === 'production'
-    ? config.build.assetsSubDirectory
-    : config.dev.assetsSubDirectory
+	const assetsSubDirectory = process.env.NODE_ENV === 'production'
+		? config.build.assetsSubDirectory
+		: config.dev.assetsSubDirectory
 
-  return posix.join(assetsSubDirectory, _path)
+	return posix.join(assetsSubDirectory, _path)
 }
 
 exports.createNotifierCallback = () => {
-  const notifier = require('node-notifier')
+	const notifier = require('node-notifier')
 
-  return (severity, errors) => {
-    if (severity !== 'error') return
+	return (severity, errors) => {
+		if (severity !== 'error') return
 
-    const error = errors[0]
-    const filename = error.file && error.file.split('!').pop()
+		const error = errors[0]
+		const filename = error.file && error.file.split('!').pop()
 
-    notifier.notify({
-      title: packageConfig.name,
-      message: severity + ': ' + error.name,
-      subtitle: filename || '',
-      icon: join(__dirname, 'logo.png')
-    })
-  }
+		notifier.notify({
+			title: packageConfig.name,
+			message: severity + ': ' + error.name,
+			subtitle: filename || '',
+			icon: join(__dirname, 'logo.png')
+		})
+	}
 }
