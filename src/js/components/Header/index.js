@@ -3,7 +3,7 @@ import {
 	Link,
 } from 'react-router-dom';
 
-import './style';
+import './style.scss';
 
 export default () => (
 	<ul className="header">

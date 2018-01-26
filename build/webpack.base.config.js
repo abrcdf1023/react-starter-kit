@@ -14,11 +14,7 @@ module.exports = {
       : config.dev.assetsPublicPath
 	},
 	resolve: {
-		extensions: ['.js', '.scss'],
-		modules: [
-			resolve(__dirname, '../src'),
-			resolve('node_modules'),
-		],
+		extensions: ['.js', '.jsx'],
 	},
 	module: {
 		rules: [{
