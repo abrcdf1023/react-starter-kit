@@ -6,23 +6,20 @@ import {
 
 import App from 'scenes';
 
-ReactDOM.render(
-	<AppContainer>
-		<App />
-	</AppContainer>,
-	document.getElementById('root'),
-);
+const render = (Component) => {
+	ReactDOM.render(
+		<AppContainer>
+			<Component />
+		</AppContainer>,
+		document.getElementById('root'),
+	);
+};
+
+render(App);
 
 // Hot Module Replacement API
 if (module.hot) {
 	module.hot.accept('scenes', () => {
-		/* eslint-disable global-require */
-		const NextApp = require('scenes').default;
-		ReactDOM.render(
-			<AppContainer>
-				<NextApp />
-			</AppContainer>,
-			document.getElementById('root'),
-		);
+		render(App);
 	});
 }
