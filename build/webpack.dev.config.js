@@ -59,13 +59,15 @@ module.exports = merge(baseWebpackConfig, {
 	},
 	plugins: [
 		new webpack.HotModuleReplacementPlugin(),
-		new webpack.NamedModulesPlugin(),
+		new webpack.NamedModulesPlugin(), // HMR shows correct file names in console on update.
 		new webpack.NoEmitOnErrorsPlugin(),
+		 // https://github.com/ampedandwired/html-webpack-plugin
 		new HtmlWebpackPlugin({
       filename: 'index.html',
       template: 'templates/index.html',
       inject: true
-    }),
+		}),
+		// copy custom static assets
 		new CopyWebpackPlugin([
       {
         from: resolve(__dirname, '../static'),

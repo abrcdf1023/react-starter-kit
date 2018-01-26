@@ -1,7 +1,11 @@
 import React from 'react';
+import logo from 'assets/images/logo.png';
 
 const Home = () => (
-	<p>Hello world</p>
+	<div>
+		<p>Hello world</p>
+		<img src={logo} alt="" />
+	</div>
 );
 
 export default Home;

@@ -6,24 +6,27 @@ module.exports = {
 		rules: [{
 			test: /\.js$/,
 			exclude: /node_modules/,
-			use: [{
-				loader: 'babel-loader',
-			}],
-		}, {
-			test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
-			use: {
-				loader: 'url-loader',
-				options: {
-					name: 'assets/fonts/[name].[ext]',
-				},
-			},
+			loader: 'babel-loader',
 		}, {
 			test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
-			use: {
-				loader: 'url-loader',
-				options: {
-					name: 'assets/images/[name].[ext]',
-				},
+			loader: 'url-loader',
+			options: {
+				name: 'static/images/[name].[hash:7].[ext]',
+				limit: 10000,
+			},
+		}, {
+			test: /\.(mp4|webm|ogg|mp3|wav|flac|aac)(\?.*)?$/,
+			loader: 'url-loader',
+			options: {
+				limit: 10000,
+				name: 'static/media/[name].[hash:7].[ext]',
+			}
+		}, {
+			test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
+			loader: 'url-loader',
+			options: {
+				name: 'static/fonts/[name].[hash:7].[ext]',
+				limit: 10000,
 			},
 		}],
 	},
