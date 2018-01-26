@@ -3,6 +3,7 @@ const webpack = require('webpack');
 const { resolve,posix } = require('path');
 
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const merge = require('webpack-merge');
 const config = require('../config');
@@ -31,7 +32,7 @@ module.exports = merge(baseWebpackConfig, {
 	},
 	devtool: config.dev.devtool,
 	entry: {
-		main: [
+		app: [
 			'babel-polyfill',
 			'isomorphic-fetch',
 			'react-hot-loader/patch',
@@ -60,6 +61,11 @@ module.exports = merge(baseWebpackConfig, {
 		new webpack.HotModuleReplacementPlugin(),
 		new webpack.NamedModulesPlugin(),
 		new webpack.NoEmitOnErrorsPlugin(),
+		new HtmlWebpackPlugin({
+      filename: 'index.html',
+      template: 'templates/index.html',
+      inject: true
+    }),
 		new CopyWebpackPlugin([
       {
         from: resolve(__dirname, '../static'),

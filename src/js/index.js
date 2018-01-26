@@ -11,7 +11,7 @@ const render = (Component) => {
 		<AppContainer>
 			<Component />
 		</AppContainer>,
-		document.getElementById('root'),
+		document.getElementById('app'),
 	);
 };
 
@@ -19,7 +19,7 @@ render(App);
 
 // Hot Module Replacement API
 if (module.hot) {
-	module.hot.accept('scenes', () => {
+	module.hot.accept('./scenes', () => {
 		render(App);
 	});
 }
