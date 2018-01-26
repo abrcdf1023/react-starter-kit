@@ -1,9 +1,13 @@
 const webpack = require('webpack');
-const { resolve } = require('path');
+const { resolve,posix } = require('path');
 
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
-module.exports = {
+const merge = require('webpack-merge');
+const config = require('../config');
+const baseWebpackConfig = require('./webpack.base.config');
+
+module.exports = merge(baseWebpackConfig, {
 	module: {
 		rules:[{
 			test: /\.scss$/,
@@ -46,7 +50,7 @@ module.exports = {
 		publicPath: config.dev.assetsPublicPath,
 		historyApiFallback: {
 			rewrites: [
-				{ from: /.*/, to: path.posix.join(config.dev.assetsPublicPath, 'index.html') },
+				{ from: /.*/, to: posix.join(config.dev.assetsPublicPath, 'index.html') },
       ],
 		},
 		port: config.dev.port,
@@ -57,10 +61,10 @@ module.exports = {
 		new webpack.NoEmitOnErrorsPlugin(),
 		new CopyWebpackPlugin([
       {
-        from: path.resolve(__dirname, '../static'),
+        from: resolve(__dirname, '../static'),
         to: config.dev.assetsSubDirectory,
         ignore: ['.*']
       }
     ])
 	],
-};
+});
