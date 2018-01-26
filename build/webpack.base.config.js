@@ -15,6 +15,10 @@ module.exports = {
 	},
 	resolve: {
 		extensions: ['.js', '.scss'],
+		modules: [
+			resolve(__dirname, '../src'),
+			resolve('node_modules'),
+		],
 	},
 	module: {
 		rules: [{
