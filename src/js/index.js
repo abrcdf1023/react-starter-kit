@@ -1,25 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {
-	AppContainer,
-} from 'react-hot-loader';
 
 import App from './scenes';
 
-const render = (Component) => {
-	ReactDOM.render(
-		<AppContainer>
-			<Component />
-		</AppContainer>,
-		document.getElementById('app'),
-	);
-};
-
-render(App);
-
-// Hot Module Replacement API
-if (module.hot) {
-	module.hot.accept('./scenes', () => {
-		render(App);
-	});
-}
+ReactDOM.render(
+	<App />,
+	document.getElementById('app'),
+);

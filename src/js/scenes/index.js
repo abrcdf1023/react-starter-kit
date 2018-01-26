@@ -3,13 +3,14 @@ import {
 	BrowserRouter as Router,
 	Route,
 } from 'react-router-dom';
+import { hot } from 'react-hot-loader';
 
 import Header from '../components/Header';
 import Home from './Home';
 import Page1 from './Page1';
 import Page2 from './Page2';
 
-export default () => (
+const App = () => (
 	<Router>
 		<div>
 			<Header />
@@ -22,3 +23,5 @@ export default () => (
 		</div>
 	</Router>
 );
+
+export default hot(module)(App);
