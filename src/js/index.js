@@ -4,7 +4,7 @@ import {
 	AppContainer,
 } from 'react-hot-loader';
 
-import App from 'scenes';
+import App from './scenes';
 
 const render = (Component) => {
 	ReactDOM.render(
