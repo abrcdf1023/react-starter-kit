@@ -1,29 +1,11 @@
 const webpack = require('webpack');
 const { resolve } = require('path');
 
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+
 module.exports = {
-	devtool: 'source-map',
-	entry: {
-		main: [
-			'babel-polyfill',
-			'isomorphic-fetch',
-			'react-hot-loader/patch',
-			'./src/js/index.js',
-		],
-	},
-	output: {
-		publicPath: 'http://localhost:7080/',
-		filename: '[name].js',
-		pathinfo: true,
-	},
 	module: {
-		rules: [{
-			test: /\.js$/,
-			include: [resolve(__dirname, 'src/js'), resolve(__dirname, 'test')],
-			use: {
-				loader: 'babel-loader',
-			},
-		}, {
+		rules:[{
 			test: /\.scss$/,
 			use: [{
 				loader: 'style-loader',
@@ -40,48 +22,45 @@ module.exports = {
 					sourceMap: true,
 				},
 			}],
-		}, {
-			test: /\.(ttf|eot|svg|woff(2)?)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-			include: resolve(__dirname, 'dist/assets/fonts'),
-			use: {
-				loader: 'file-loader',
-				options: {
-					name: '[name].[ext]',
-					outputPath: 'assets/fonts/',
-				},
-			},
-		}, {
-			test: /\.(png|jpg|svg|gif)$/,
-			include: resolve(__dirname, 'dist/assets/images'),
-			use: {
-				loader: 'file-loader',
-				options: {
-					name: '[name].[ext]',
-					outputPath: 'assets/images/',
-				},
-			},
-		}],
+		}]
 	},
-	resolve: {
-		modules: [
-			resolve('src'),
-			resolve('node_modules'),
+	devtool: config.dev.devtool,
+	entry: {
+		main: [
+			'babel-polyfill',
+			'isomorphic-fetch',
+			'react-hot-loader/patch',
+			'./src/js/index.js',
 		],
-		extensions: ['.js', '.scss'],
+	},
+	output: {
+		publicPath: config.dev.assetsPublicPath,
+		filename: '[name].js',
+	},
+	devServer: {
+		clientLogLevel: 'warning',
+		contentBase: false,
+		host: 'localhost',
+		hot: true,
+		proxy: config.dev.proxyTable,
+		publicPath: config.dev.assetsPublicPath,
+		historyApiFallback: {
+			rewrites: [
+				{ from: /.*/, to: path.posix.join(config.dev.assetsPublicPath, 'index.html') },
+      ],
+		},
+		port: config.dev.port,
 	},
 	plugins: [
 		new webpack.HotModuleReplacementPlugin(),
+		new webpack.NamedModulesPlugin(),
 		new webpack.NoEmitOnErrorsPlugin(),
+		new CopyWebpackPlugin([
+      {
+        from: path.resolve(__dirname, '../static'),
+        to: config.dev.assetsSubDirectory,
+        ignore: ['.*']
+      }
+    ])
 	],
-	devServer: {
-		proxy: { // proxy URLs to backend development server
-			'/': 'http://localhost:9080',
-		},
-		contentBase: './dist',
-		publicPath: 'http://localhost:7081/',
-		historyApiFallback: true,
-		port: 7081,
-		hot: true,
-		noInfo: true,
-	},
 };

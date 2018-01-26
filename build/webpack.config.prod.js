@@ -1,51 +1,19 @@
 const webpack = require('webpack');
 const { resolve } = require('path');
-const autoprefixer = require('autoprefixer');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-
-const CleanWebpackPlugin = require('clean-webpack-plugin');
+const autoprefixer = require('autoprefixer');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
-// ../css/bundle.min.css Is css output path relative by js output path
-const extractCSS = new ExtractTextPlugin('../css/bundle.min.css');
+const merge = require('webpack-merge');
+const config = require('../config');
+const baseWebpackConfig = require('./webpack.base.conf');
 
-// the path(s) that should be cleaned
-const pathsToClean = [
-	'js',
-	'css',
-];
-
-// the clean options to use
-const cleanOptions = {
-	root: resolve(__dirname, 'dist'),
-	verbose: true,
-	dry: false,
-};
-
-module.exports = {
-	entry: {
-		main: [
-			'babel-polyfill',
-			'isomorphic-fetch',
-			'./src/js/index.js',
-		],
-	},
-	output: {
-		filename: '[name].[chunkhash].js',
-		path: resolve(__dirname, 'dist/js'),
-		pathinfo: true,
-	},
+module.exports = merge(baseWebpackConfig, {
 	module: {
 		rules: [{
-			test: /\.js$/,
-			include: [resolve(__dirname, 'src/js'), resolve(__dirname, 'test')],
-			use: [{
-				loader: 'babel-loader',
-			}],
-		}, {
 			test: /\.scss$/,
 			include: resolve(__dirname, 'src/scss'),
-			use: extractCSS.extract({
+			use: ExtractTextPlugin.extract({
 				fallback: 'style-loader',
 				use: [{
 					loader: 'css-loader',
@@ -69,38 +37,20 @@ module.exports = {
 					},
 				}],
 			}),
-		}, {
-			test: /\.(ttf|eot|svg|woff(2)?)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-			include: resolve(__dirname, 'src/assets/fonts'),
-			use: {
-				loader: 'file-loader',
-				options: {
-					name: '[name].[ext]',
-					outputPath: '../assets/fonts/',
-				},
-			},
-		}, {
-			test: /\.(png|jpg|svg|gif)$/,
-			include: resolve(__dirname, 'src/assets/images'),
-			use: {
-				loader: 'file-loader',
-				options: {
-					name: '[name].[ext]',
-					outputPath: '../assets/images/',
-				},
-			},
-		}],
+		}]
 	},
-	resolve: {
-		modules: [
-			resolve('src'),
-			resolve('node_modules'),
+	entry: {
+		main: [
+			'babel-polyfill',
+			'isomorphic-fetch',
+			'src/js/index.js',
 		],
-		extensions: ['.js', '.scss'],
+	},
+	output: {
+		path: config.build.assetsRoot,
+		filename: 'js/[name].[chunkhash].js',
 	},
 	plugins: [
-		// clean old js and css
-		new CleanWebpackPlugin(pathsToClean, cleanOptions),
 		// define global values
 		new webpack.DefinePlugin({
 			'process.env': {
@@ -116,7 +66,18 @@ module.exports = {
 		new webpack.optimize.CommonsChunkPlugin({
 			name: 'manifest',
 		}),
-		extractCSS,
+		new ExtractTextPlugin({
+      filename: 'css/[name].[contenthash].css',
+      allChunks: true,
+		}),
+		// copy custom static assets
+    new CopyWebpackPlugin([
+      {
+        from: path.resolve(__dirname, '../static'),
+        to: config.build.assetsSubDirectory,
+        ignore: ['.*']
+      }
+    ]),
 		new webpack.optimize.OccurrenceOrderPlugin(),
 		new webpack.optimize.UglifyJsPlugin({
 			sourceMap: false,
@@ -131,4 +92,4 @@ module.exports = {
 		// webpack enhancement plugins
 		new BundleAnalyzerPlugin(),
 	],
-};
+});
