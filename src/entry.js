@@ -5,9 +5,7 @@ import {
   Route,
 } from 'react-router-dom';
 /* eslint import/no-extraneous-dependencies: "off" */
-import {
-  hot,
-} from 'react-hot-loader';
+import { hot } from 'react-hot-loader';
 
 import Header from './components/Header';
 import Home from './scenes/Home';
