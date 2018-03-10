@@ -7,9 +7,9 @@ import {
 import { hot } from 'react-hot-loader';
 
 import Header from './components/Header';
-import Home from './scenes/Home';
-import Page1 from './scenes/Page1';
-import Page2 from './scenes/Page2';
+import Home from './loadable/Home';
+import Page1 from './components/Page1';
+import Page2 from './components/Page2';
 
 export default hot(module)(() => (
   <Router>
