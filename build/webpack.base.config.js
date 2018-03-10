@@ -1,5 +1,7 @@
 'use strict'
 const { resolve } = require('path');
+const autoprefixer = require('autoprefixer');
+
 const utils = require('./utils');
 
 const config = require('../config');
@@ -21,6 +23,29 @@ module.exports = {
 			test: /\.js$/,
 			exclude: /node_modules/,
 			loader: 'babel-loader',
+		}, {
+			test: /\.scss$/,
+			use: [{
+				loader: 'style-loader',
+			}, {
+				loader: 'css-loader',
+				options: {
+					sourceMap: true,
+				},
+			},{
+				loader: 'sass-loader',
+				options: {
+					sourceMap: true,
+				},
+			}, {
+				loader: 'postcss-loader',
+				options: {
+					parser: 'postcss-scss',
+					plugins: [
+						autoprefixer,
+					],
+				},
+			}],
 		}, {
 			test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
 			loader: 'url-loader',

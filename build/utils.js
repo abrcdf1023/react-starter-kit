@@ -23,7 +23,6 @@ exports.createNotifierCallback = () => {
 			title: packageConfig.name,
 			message: severity + ': ' + error.name,
 			subtitle: filename || '',
-			icon: join(__dirname, 'logo.png')
 		})
 	}
 }
