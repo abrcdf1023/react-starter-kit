@@ -1,19 +1,19 @@
 'use strict'
-const { resolve } = require('path');
-const autoprefixer = require('autoprefixer');
+const { resolve } = require('path')
+const autoprefixer = require('autoprefixer')
 
-const utils = require('./utils');
+const utils = require('./utils')
 
-const config = require('../config');
+const config = require('../config')
+
+const isDev = process.env.NODE_ENV === 'development'
 
 module.exports = {
 	context: resolve(__dirname, '../'),
 	output: {
 		path: config.build.assetsRoot,
 		filename: '[name].js',
-		publicPath: process.env.NODE_ENV === 'production'
-			? config.build.assetsPublicPath
-			: config.dev.assetsPublicPath
+		publicPath: isDev ? config.dev.assetsPublicPath	: config.build.assetsPublicPath
 	},
 	resolve: {
 		extensions: ['.js', '.jsx'],
@@ -30,6 +30,9 @@ module.exports = {
 			}, {
 				loader: 'css-loader',
 				options: {
+					importLoaders: 1,
+					localIdentName: isDev ? '[path][name]__[local]--[hash:base64:5]' : '[hash:base64:5]',
+					modules: true,
 					sourceMap: true,
 				},
 			},{
