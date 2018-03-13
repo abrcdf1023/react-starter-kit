@@ -6,14 +6,16 @@ const utils = require('./utils')
 
 const config = require('../config')
 
-const isDev = process.env.NODE_ENV === 'development'
+const MiniCssExtractPlugin = require("mini-css-extract-plugin")
+
+const isProduction = process.env.NODE_ENV === 'production'
 
 module.exports = {
 	context: resolve(__dirname, '../'),
 	output: {
 		path: config.build.assetsRoot,
 		filename: '[name].js',
-		publicPath: isDev ? config.dev.assetsPublicPath	: config.build.assetsPublicPath
+		publicPath: isProduction ? config.build.assetsPublicPath	: config.dev.assetsPublicPath
 	},
 	resolve: {
 		extensions: ['.js', '.jsx'],
@@ -25,13 +27,13 @@ module.exports = {
 			loader: 'babel-loader',
 		}, {
 			test: /\.scss$/,
-			use: [{
-				loader: 'style-loader',
-			}, {
+			use: [
+			isProduction ? MiniCssExtractPlugin.loader : 'style-loader',
+			{
 				loader: 'css-loader',
 				options: {
 					importLoaders: 1,
-					localIdentName: isDev ? '[path][name]__[local]--[hash:base64:5]' : '[hash:base64:5]',
+					localIdentName: isProduction ? '[hash:base64:5]' : '[path][name]__[local]--[hash:base64:5]',
 					modules: true,
 					sourceMap: true,
 				},

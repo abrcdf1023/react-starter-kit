@@ -4,8 +4,9 @@ const { resolve, join } = require('path');
 const utils = require('./utils')
 const merge = require('webpack-merge');
 
-const CopyWebpackPlugin = require('copy-webpack-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
+const MiniCssExtractPlugin = require("mini-css-extract-plugin")
 
 const config = require('../config');
 const baseWebpackConfig = require('./webpack.base.config');
@@ -22,7 +23,7 @@ const webpackConfig = merge(baseWebpackConfig, {
 	devtool: config.build.productionSourceMap ? config.build.devtool : false,
 	output: {
 		path: config.build.assetsRoot,
-		filename: utils.assetsPath('js/[name].[chunkhash].js'),
+		filename: 'js/[name].[chunkhash].js',
 	},
 	plugins: [
 		// generate dist index.html with correct asset hash for caching.
@@ -42,6 +43,13 @@ const webpackConfig = merge(baseWebpackConfig, {
 			// necessary to consistently work with multiple chunks via CommonsChunkPlugin
 			chunksSortMode: 'dependency'
 		}),
+		// replace extract-text-webpack-plugin
+		new MiniCssExtractPlugin({
+      // Options similar to the same options in webpackOptions.output
+      // both options are optional
+      filename: "css/[name].css",
+      chunkFilename: "css/[id].css"
+    }),
 		// copy custom static assets
 		new CopyWebpackPlugin([
 			{
