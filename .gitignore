@@ -60,3 +60,4 @@ typings/
 # MAC OS
 .DS_Store
 
+dist/

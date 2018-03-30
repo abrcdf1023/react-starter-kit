@@ -16,7 +16,6 @@ const webpackConfig = merge(baseWebpackConfig, {
 	entry: {
 		app: [
 			'babel-polyfill',
-			'isomorphic-fetch',
 			'./src/entry.js',
 		],
 	},

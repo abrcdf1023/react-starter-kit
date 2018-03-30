@@ -15,7 +15,7 @@ module.exports = {
 	output: {
 		path: config.build.assetsRoot,
 		filename: '[name].js',
-		publicPath: isProduction ? config.build.assetsPublicPath	: config.dev.assetsPublicPath
+		publicPath: isProduction ? config.build.assetsPublicPath : config.dev.assetsPublicPath
 	},
 	resolve: {
 		extensions: ['.js', '.jsx'],
@@ -53,7 +53,15 @@ module.exports = {
 			}],
 		}, {
 			test: /\.css$/,
-			loader: 'style-loader!css-loader'
+			use: [
+			isProduction ? MiniCssExtractPlugin.loader : 'style-loader',
+			{
+				loader: 'css-loader',
+				options: {
+					importLoaders: 1,
+					localIdentName: isProduction ? '[hash:base64:5]' : '[path][name]__[local]--[hash:base64:5]',
+				},
+			}]
 		}, {
 			test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
 			loader: 'url-loader',
