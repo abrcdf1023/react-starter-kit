@@ -1,7 +1,7 @@
 'use strict'
 const utils = require('./utils');
 const webpack = require('webpack');
-const config = require('../config');
+const config = require('./config');
 const merge = require('webpack-merge');
 const {
   resolve,
@@ -20,7 +20,7 @@ const devWebpackConfig = merge(baseWebpackConfig, {
   entry: {
     app: [
       'babel-polyfill',
-      './src/entry.js',
+      './src/entry.jsx',
     ],
   },
   devtool: config.dev.devtool,
@@ -57,12 +57,12 @@ const devWebpackConfig = merge(baseWebpackConfig, {
       template: 'templates/index.html',
       inject: true
     }),
-    // copy custom static assets
+    // copy .md and .json assets only and all images handle by loader
     new CopyWebpackPlugin([{
       from: resolve(__dirname, '../static'),
       to: config.dev.assetsSubDirectory,
-      ignore: ['.*']
-    }])
+      ignore: ["*.png", "*.jpg", "*.jpeg", "*.svg", "*.gif"],
+    }]),
   ],
 });
 

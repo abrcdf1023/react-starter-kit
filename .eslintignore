@@ -1,6 +1,3 @@
-/build/
-/config/
-/dist/
-/test/
-
-server.js
+/build/**
+/config/**
+/dist/**

@@ -60,4 +60,6 @@ typings/
 # MAC OS
 .DS_Store
 
-dist/
+# Build Files
+/dist/
+/jenkinsJunitResult/

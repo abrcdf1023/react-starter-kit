@@ -1,5 +1,5 @@
 const { posix, join } = require('path');
-const config = require('../config')
+const config = require('./config')
 const packageConfig = require('../package.json')
 
 exports.assetsPath = function (_path) {
