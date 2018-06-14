@@ -4,9 +4,21 @@ react startkit with scss redux router
 
 Simple React startkit with hot loader and router
 
-To do list
+### Basic Usage
 
-1. redux rxjs mobx samples
+Download as zip and
+
+```sh
+cd react-startkit
+```
+
+```sh
+yarn && yarn dev
+```
+
+### Todo list
+
+1. ~~redux rxjs samples~~
 2. n2n test
 3. isomorphic (user optional)
 4. GraphyQL (user optional)
