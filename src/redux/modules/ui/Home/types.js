@@ -1,0 +1,3 @@
+export const AMIIBO_GET = 'AMIIBO_GET'
+export const AMIIBO_GET_ABORT = 'AMIIBO_GET_ABORT'
+export const AMIIBO_GET_FAILURE = 'AMIIBO_GET_FAILURE'
