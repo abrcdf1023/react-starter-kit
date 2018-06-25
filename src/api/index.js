@@ -7,4 +7,4 @@ const config = {
   },
 }
 
-export const fetchGetAmiibo = payload => axios.get(`http://www.amiiboapi.com/api/amiibo/${queryString.stringify(payload)}`, config)
+export const fetchGetAmiibo = payload => axios.get(`http://www.amiiboapi.com/api/amiibo/?${queryString.stringify(payload)}`, config)
