@@ -6,7 +6,7 @@ import Home from '@/components/Home'
 import * as selectors from '@/redux/modules/ui/Home/selectors'
 import { getAmiiboList } from '@/redux/modules/entities/amiiboList/selectors'
 
-import { fetchGetAmiibo } from '@/redux/modules/ui/Home/actions'
+import { fetchGetAmiibo, fetchGetAmiiboCancel } from '@/redux/modules/ui/Home/actions'
 
 const mapStateToProps = state => ({
   amiiboList: getAmiiboList(state),
@@ -18,6 +18,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => bindActionCreators({
   fetchGetAmiibo,
+  fetchGetAmiiboCancel,
 }, dispatch)
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home)

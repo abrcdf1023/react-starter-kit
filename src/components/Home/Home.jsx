@@ -21,6 +21,7 @@ export default class Home extends Component {
     errorMsg: PropTypes.string,
 
     fetchGetAmiibo: PropTypes.func.isRequired,
+    fetchGetAmiiboCancel: PropTypes.func.isRequired,
   }
   static defaultProps = {
     errorMsg: '',
@@ -28,7 +29,7 @@ export default class Home extends Component {
   state={}
   render() {
     const {
-      amiiboList, isGetting, error, errorMsg, fetchGetAmiibo,
+      amiiboList, isGetting, error, errorMsg, fetchGetAmiibo, fetchGetAmiiboCancel,
     } = this.props
     return (
       <Container style={{ paddingTop: '2rem' }}>
@@ -45,12 +46,18 @@ export default class Home extends Component {
           }}
         >Get Amiibo
         </Button>
+        <Button
+          onClick={() => {
+            fetchGetAmiiboCancel()
+          }}
+        >Cancel
+        </Button>
         { error ? <Message header={errorMsg} negative /> : null }
         <Segment loading={isGetting}>
           <Card.Group>
             {
               _map(amiiboList, amiibo => (
-                <Card>
+                <Card key={amiibo.tail}>
                   <Image src={amiibo.image} />
                   <Card.Content>
                     <Card.Header>{amiibo.name}</Card.Header>

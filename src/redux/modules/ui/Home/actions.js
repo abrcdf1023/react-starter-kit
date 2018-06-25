@@ -1,7 +1,16 @@
-import { createAction } from 'redux-actions'
+import { createActions } from 'redux-actions'
 
 import * as types from './types'
 
-export const fetchGetAmiibo = createAction(types.AMIIBO_GET)
-export const fetchGetAmiiboAbort = createAction(types.AMIIBO_GET_ABORT)
-export const fetchGetAmiiboFailure = createAction(types.AMIIBO_GET_FAILURE)
+const actionCreators = createActions({
+  HOME: {
+    [types.FETCH_GET_AMIIBO]: undefined,
+    [types.FETCH_GET_AMIIBO_SUCCESS]: undefined,
+    [types.FETCH_GET_AMIIBO_FAILURE]: undefined,
+    [types.FETCH_GET_AMIIBO_CANCEL]: undefined,
+  },
+})
+
+export const {
+  fetchGetAmiibo, fetchGetAmiiboSuccess, fetchGetAmiiboCancel, fetchGetAmiiboFailure,
+} = actionCreators.home
