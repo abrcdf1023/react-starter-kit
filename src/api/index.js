@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { objectToQueryString } from '@e-group/frontend-utils/async'
+import queryString from 'query-string'
 
 const config = {
   headers: {
@@ -7,4 +7,4 @@ const config = {
   },
 }
 
-export const fetchGetAmiibo = payload => axios.get(`http://www.amiiboapi.com/api/amiibo/${objectToQueryString(payload)}`, config)
+export const fetchGetAmiibo = payload => axios.get(`http://www.amiiboapi.com/api/amiibo/${queryString.stringify(payload)}`, config)
