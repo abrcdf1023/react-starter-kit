@@ -1,6 +1,6 @@
 import Immutable from 'immutable'
 import { handleActions } from 'redux-actions'
-import * as actions from '@/redux/modules/actionCreators'
+import * as actions from './actions'
 
 const reducer = handleActions({
   [actions.addAmiiboListEntities]:

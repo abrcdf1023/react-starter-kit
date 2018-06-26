@@ -1,6 +1,7 @@
 // redux
-import { amiiboListConnect } from '@/redux/modules/decorators'
+import { withAmiiboList } from '@/redux/modules/entities/amiiboList/decorators'
 import * as selectors from '@/redux/modules/ui/Home/selectors'
+import actions from '@/redux/modules/ui/Home/actions'
 import { simpleConnect } from '@/utils'
 // component
 import _map from 'lodash/map'
@@ -17,8 +18,8 @@ const mapStateToProps = state => ({
   error: selectors.getAmiiboError(state),
   errorMsg: selectors.getAmiiboErrorMsg(state),
 })
-@amiiboListConnect
-@simpleConnect(mapStateToProps, 'ui.home')
+@withAmiiboList
+@simpleConnect(mapStateToProps, actions.ui.home)
 export default class Home extends Component {
   static propTypes = {
     amiiboList: PropTypes.objectOf(PropTypes.any).isRequired,

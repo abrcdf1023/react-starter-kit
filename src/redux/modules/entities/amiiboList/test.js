@@ -1,7 +1,7 @@
 import Immutable from 'immutable'
 import reducer from './index'
-import { addAmiiboListEntities } from '@/redux/modules/actionCreators'
-import * as types from '@/redux/modules/types'
+import { addAmiiboListEntities } from './actions'
+import * as types from './types'
 
 const entities = {
   amiiboList: {

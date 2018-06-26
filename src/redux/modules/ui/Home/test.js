@@ -6,7 +6,7 @@ import * as api from '@/api'
 import * as schema from '@/api/schema'
 
 import { fetchGetAmiiboEpic } from './epics'
-import { fetchGetHomeAmiibo } from '@/redux/modules/actionCreators'
+import { fetchGetAmiibo } from './actions'
 import * as types from '@/redux/modules/types'
 
 describe('Test Home Epics', () => {
@@ -69,7 +69,7 @@ describe('Test Home Epics', () => {
       },
     }
     mockAxios.onGet('http://www.amiiboapi.com/api/amiibo/?name=mario').reply(200, response)
-    store.dispatch(fetchGetHomeAmiibo(payload))
+    store.dispatch(fetchGetAmiibo(payload))
     setTimeout(() => {
       expect(store.getActions()).toEqual([
         { type: types.FETCH_GET_HOME_AMIIBO, payload },
