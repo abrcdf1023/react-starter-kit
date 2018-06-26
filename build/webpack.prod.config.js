@@ -13,12 +13,6 @@ const baseWebpackConfig = require('./webpack.base.config');
 
 const webpackConfig = merge(baseWebpackConfig, {
   mode: 'production',
-  entry: {
-    app: [
-      'babel-polyfill',
-      './src/entry.jsx',
-    ],
-  },
   devtool: config.build.productionSourceMap ? config.build.devtool : false,
   output: {
     path: config.build.assetsRoot,

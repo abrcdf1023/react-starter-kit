@@ -12,6 +12,12 @@ const isProduction = process.env.NODE_ENV === 'production'
 
 module.exports = {
   context: path.resolve(__dirname, '../'),
+  entry: {
+    app: [
+      '@babel/polyfill',
+      './src/entry.jsx',
+    ],
+  },
   output: {
     path: config.build.assetsRoot,
     filename: '[name].js',

@@ -17,12 +17,6 @@ const portfinder = require('portfinder');
 
 const devWebpackConfig = merge(baseWebpackConfig, {
   mode: 'development',
-  entry: {
-    app: [
-      'babel-polyfill',
-      './src/entry.jsx',
-    ],
-  },
   devtool: config.dev.devtool,
   devServer: {
     clientLogLevel: 'warning',
