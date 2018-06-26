@@ -1,15 +1,15 @@
-# react-startkit
+# react-starter-kit
 
-react startkit with scss redux router
+react starter kit with scss redux react-router-dom
 
-Simple React startkit with hot loader and router
+Simple React starter kit with hot loader and router
 
 ### Basic Usage
 
 Download as zip and
 
 ```sh
-cd react-startkit
+cd react-starter-kit
 ```
 
 ```sh
@@ -19,6 +19,6 @@ yarn && yarn dev
 ### Todo list
 
 1. ~~redux rxjs samples~~
-2. n2n test
+2. jest + enzyme
 3. isomorphic (user optional)
 4. GraphyQL (user optional)

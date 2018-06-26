@@ -1,26 +1,13 @@
 {
-	"name": "react-startkit",
+	"name": "react-starter-kit",
 	"version": "2.1.0",
 	"description": "",
 	"main": "index.js",
 	"scripts": {
 		"dev": "webpack-dev-server --inline --progress --config build/webpack.dev.config.js",
 		"build": "rm -rf dist && node build/build.js",
-		"test": "jest",
+		"test": "rm -rf jenkinsJunitResult && jest",
 		"git-cli": "git-flow-cli"
-	},
-	"jest": {
-		"rootDir": "src",
-		"moduleNameMapper": {
-			"@/(.*)$": "<rootDir>/$1"
-		},
-		"reporters": [
-			"default",
-			"jest-junit"
-		]
-	},
-	"jest-junit": {
-		"output": "jenkinsJunitResult/result.xml"
 	},
 	"author": "JerryP <egroup.jerrylee@gmail.com>",
 	"license": "MIT",
