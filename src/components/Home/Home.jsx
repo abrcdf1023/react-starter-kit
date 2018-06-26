@@ -1,5 +1,5 @@
 // redux
-import { amiiboListEntity } from '@/redux/modules/entities/decorators'
+import { amiiboListConnect } from '@/redux/modules/entities/decorators'
 import * as selectors from '@/redux/modules/ui/Home/selectors'
 import { actionCreators } from '@/redux/modules/actionCreators'
 import { simpleConnect } from '@/utils'
@@ -18,7 +18,7 @@ const mapStateToProps = state => ({
   error: selectors.getAmiiboError(state),
   errorMsg: selectors.getAmiiboErrorMsg(state),
 })
-@amiiboListEntity
+@amiiboListConnect
 @simpleConnect(mapStateToProps, actionCreators.home)
 export default class Home extends Component {
   static propTypes = {

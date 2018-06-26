@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
 
-export const amiiboListEntity = connect(state => ({
+export const amiiboListConnect = connect(state => ({
   amiiboList: state.toJS().entities.amiiboList,
 }))
