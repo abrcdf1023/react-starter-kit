@@ -5,10 +5,8 @@ import { createEpicMiddleware } from 'redux-observable'
 import * as api from '@/api'
 import * as schema from '@/api/schema'
 
-import { AMIIBOLIST_ADD_ENTITIES } from '@/redux/modules/entities/amiiboList/types'
-import { fetchGetAmiibo } from './actions'
 import { fetchGetAmiiboEpic } from './epics'
-import * as types from './types'
+import { actionCreators, types } from '@/redux/modules/actionCreators'
 
 describe('Test Home Epics', () => {
   const epicMiddleware = createEpicMiddleware({
@@ -19,7 +17,7 @@ describe('Test Home Epics', () => {
   const store = mockStore()
 
   epicMiddleware.run(fetchGetAmiiboEpic)
-
+ 
   afterEach(() => {
     mockAxios.reset()
     store.clearActions()
@@ -70,14 +68,14 @@ describe('Test Home Epics', () => {
       },
     }
     mockAxios.onGet('http://www.amiiboapi.com/api/amiibo/?name=mario').reply(200, response)
-    store.dispatch(fetchGetAmiibo(payload))
+    store.dispatch(actionCreators.home.fetchGetAmiibo(payload))
     setTimeout(() => {
       expect(store.getActions()).toEqual([
-        { type: types.AMIIBO_GET, payload },
-        { type: types.AMIIBO_GET_ABORT },
-        { type: AMIIBOLIST_ADD_ENTITIES, payload: entity },
+        { type: types.home.fetchGetAmiibo, payload },
+        { type: types.home.fetchGetAmiiboSuccess, payload: response },
+        { type: types.amiiboList.addEntities, payload: entity },
       ])
       done()
-    }, 100)
+    }, 600)
   })
 })

@@ -1,10 +1,8 @@
 // redux
-import { bindActionCreators } from 'redux'
-import { connect } from 'react-redux'
+import { amiiboListEntity } from '@/redux/modules/entities/decorators'
 import * as selectors from '@/redux/modules/ui/Home/selectors'
-import { getAmiiboList } from '@/redux/modules/entities/amiiboList/selectors'
-import { fetchGetAmiibo, fetchGetAmiiboCancel } from '@/redux/modules/ui/Home/actions'
-
+import { actionCreators } from '@/redux/modules/actionCreators'
+import { simpleConnect } from '@/utils'
 // component
 import _map from 'lodash/map'
 import React, { Component } from 'react'
@@ -13,23 +11,15 @@ import {
   Container, Button, Header, Card, Image, Select, Message, Segment,
 } from 'semantic-ui-react'
 
-
 import I18N from './I18N'
 
 const mapStateToProps = state => ({
-  amiiboList: getAmiiboList(state),
-
   isGetting: selectors.getAmiiboIsGetting(state),
   error: selectors.getAmiiboError(state),
   errorMsg: selectors.getAmiiboErrorMsg(state),
 })
-
-const mapDispatchToProps = dispatch => bindActionCreators({
-  fetchGetAmiibo,
-  fetchGetAmiiboCancel,
-}, dispatch)
-
-@connect(mapStateToProps, mapDispatchToProps)
+@amiiboListEntity
+@simpleConnect(mapStateToProps, actionCreators.home)
 export default class Home extends Component {
   static propTypes = {
     amiiboList: PropTypes.objectOf(PropTypes.any).isRequired,
