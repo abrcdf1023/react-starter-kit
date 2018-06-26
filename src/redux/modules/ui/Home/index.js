@@ -1,20 +1,20 @@
 import _isEmpty from 'lodash/isEmpty'
 import Immutable from 'immutable'
 import { handleActions } from 'redux-actions'
-import types from '@/redux/modules/types'
+import * as types from '@/redux/modules/types'
 
 const reducer = handleActions({
-  [types.home.fetchGetAmiibo]: state => Immutable.merge(state, {
+  [types.fetchGetHomeAmiibo]: state => Immutable.merge(state, {
     isGetting: true,
     error: false,
   }),
-  [types.home.fetchGetAmiiboSuccess]: (state, action) => Immutable.merge(state, {
+  [types.ui.home.fetchGetAmiiboSuccess]: (state, action) => Immutable.merge(state, {
     isGetting: false,
     data: action.payload,
     isEmpty: _isEmpty(action.payload),
   }),
-  [types.home.fetchGetAmiiboCancel]: state => Immutable.set(state, 'isGetting', false),
-  [types.home.fetchGetAmiiboFailure]: (state, action) => Immutable.merge(state, {
+  [types.fetchGetHomeAmiiboCancel]: state => Immutable.set(state, 'isGetting', false),
+  [types.fetchGetHomeAmiiboFailure]: (state, action) => Immutable.merge(state, {
     isGetting: false,
     error: action.error,
     errorMsg: action.payload.message,

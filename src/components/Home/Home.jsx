@@ -18,7 +18,7 @@ const mapStateToProps = state => ({
   errorMsg: selectors.getAmiiboErrorMsg(state),
 })
 @amiiboListConnect
-@simpleConnect(mapStateToProps, 'home')
+@simpleConnect(mapStateToProps, 'ui.home')
 export default class Home extends Component {
   static propTypes = {
     amiiboList: PropTypes.objectOf(PropTypes.any).isRequired,
