@@ -1,8 +1,14 @@
-import actionCreators from './actionCreators'
+import {
+  addAmiiboListEntities,
+  fetchGetHomeAmiibo,
+  fetchGetHomeAmiiboSuccess,
+  fetchGetHomeAmiiboFailure,
+  fetchGetHomeAmiiboCancel,
+} from './actionCreators'
 
-export const addAmiiboListEntities = actionCreators.entities.amiiboList.add().type
+export const ADD_AMIIBO_LIST_ENTITIES = addAmiiboListEntities().type
 
-export const fetchGetHomeAmiibo = actionCreators.ui.home.fetchGetAmiibo().type
-export const fetchGetHomeAmiiboSuccess = actionCreators.ui.home.fetchGetAmiiboSuccess().type
-export const fetchGetHomeAmiiboFailure = actionCreators.ui.home.fetchGetAmiiboFailure().type
-export const fetchGetHomeAmiiboCancel = actionCreators.ui.home.fetchGetAmiiboCancel().type
+export const FETCH_GET_HOME_AMIIBO = fetchGetHomeAmiibo().type
+export const FETCH_GET_HOME_AMIIBO_SUCCESS = fetchGetHomeAmiiboSuccess().type
+export const FETCH_GET_HOME_AMIIBO_FAILURE = fetchGetHomeAmiiboFailure().type
+export const FETCH_GET_HOME_AMIIBO_CANCEL = fetchGetHomeAmiiboCancel().type

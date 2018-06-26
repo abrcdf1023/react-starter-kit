@@ -72,9 +72,9 @@ describe('Test Home Epics', () => {
     store.dispatch(fetchGetHomeAmiibo(payload))
     setTimeout(() => {
       expect(store.getActions()).toEqual([
-        { type: types.fetchGetHomeAmiibo, payload },
-        { type: types.fetchGetHomeAmiiboSuccess, payload: response },
-        { type: types.addAmiiboListEntities, payload: entity },
+        { type: types.FETCH_GET_HOME_AMIIBO, payload },
+        { type: types.FETCH_GET_HOME_AMIIBO_SUCCESS, payload: response },
+        { type: types.ADD_AMIIBO_LIST_ENTITIES, payload: entity },
       ])
       done()
     }, 600)

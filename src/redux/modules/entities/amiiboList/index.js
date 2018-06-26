@@ -1,9 +1,9 @@
 import Immutable from 'immutable'
 import { handleActions } from 'redux-actions'
-import * as types from '@/redux/modules/types'
+import * as actions from '@/redux/modules/actionCreators'
 
 const reducer = handleActions({
-  [types.addAmiiboListEntities]:
+  [actions.addAmiiboListEntities]:
   (state, action) => Immutable.mergeDeep(state, Immutable.fromJS(action.payload.amiiboList)),
 }, Immutable.fromJS({}))
 

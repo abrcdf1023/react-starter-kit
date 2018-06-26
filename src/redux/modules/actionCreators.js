@@ -3,7 +3,7 @@ import { createActions } from 'redux-actions'
 const actionMap = {
   ENTITIES: {
     AMIIBO_LIST: {
-      ADD: undefined,
+      ADD_AMIIBO_LIST_ENTITIES: undefined,
     },
   },
   UI: {
@@ -20,7 +20,7 @@ const actionCreators = createActions(actionMap)
 
 export default actionCreators
 
-export const addAmiiboListEntities = actionCreators.entities.amiiboList.add
+export const { addAmiiboListEntities } = actionCreators.entities.amiiboList
 
 export const fetchGetHomeAmiibo = actionCreators.ui.home.fetchGetAmiibo
 export const fetchGetHomeAmiiboSuccess = actionCreators.ui.home.fetchGetAmiiboSuccess

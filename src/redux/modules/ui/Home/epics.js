@@ -15,7 +15,7 @@ import {
 import * as types from '@/redux/modules/types'
 
 export const fetchGetAmiiboEpic = (action$, state$, { api, schema }) => action$.pipe(
-  ofType(types.fetchGetHomeAmiibo),
+  ofType(types.FETCH_GET_HOME_AMIIBO),
   debounceTime(500),
   switchMap(action => createApi$(action.payload, api, 'fetchGetAmiibo')
     .pipe(
@@ -28,7 +28,7 @@ export const fetchGetAmiiboEpic = (action$, state$, { api, schema }) => action$.
       }),
       catchError(error => of(fetchGetHomeAmiiboFailure(error))),
     )),
-  takeUntil(action$.pipe(ofType(types.fetchGetHomeAmiiboCancel))),
+  takeUntil(action$.pipe(ofType(types.FETCH_GET_HOME_AMIIBO_CANCEL))),
   repeat(),
 )
 
