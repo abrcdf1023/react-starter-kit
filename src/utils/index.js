@@ -6,14 +6,18 @@ import { Observable } from 'rxjs'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
+import actionCreators from '@/redux/modules/actionCreators'
+
 /**
  * A util reduce redux boilerplate
  * @param {any} mapStateToProps
  * @param {any} actionCreators
  */
-export const simpleConnect = (mapStateToProps, actionCreators) => {
-  if (actionCreators) {
-    return connect(mapStateToProps, dispatch => bindActionCreators(actionCreators, dispatch))
+export const simpleConnect = (mapStateToProps, path) => {
+  if (path) {
+    return connect(mapStateToProps, dispatch => bindActionCreators(
+      _get(actionCreators, path), dispatch,
+    ))
   }
   return connect(mapStateToProps)
 }

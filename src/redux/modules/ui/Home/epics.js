@@ -7,7 +7,8 @@ import {
 import { normalize } from 'normalizr'
 
 import { createApi$ } from '@/utils'
-import { actionCreators, types } from '@/redux/modules/actionCreators'
+import actionCreators from '@/redux/modules/actionCreators'
+import types from '@/redux/modules/types'
 
 export const fetchGetAmiiboEpic = (action$, state$, { api, schema }) => action$.pipe(
   ofType(types.home.fetchGetAmiibo),

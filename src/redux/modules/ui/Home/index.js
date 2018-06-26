@@ -1,7 +1,7 @@
 import _isEmpty from 'lodash/isEmpty'
 import Immutable from 'immutable'
 import { handleActions } from 'redux-actions'
-import { types } from '@/redux/modules/actionCreators'
+import types from '@/redux/modules/types'
 
 const reducer = handleActions({
   [types.home.fetchGetAmiibo]: state => Immutable.merge(state, {

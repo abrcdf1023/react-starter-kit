@@ -6,7 +6,8 @@ import * as api from '@/api'
 import * as schema from '@/api/schema'
 
 import { fetchGetAmiiboEpic } from './epics'
-import { actionCreators, types } from '@/redux/modules/actionCreators'
+import actionCreators from '@/redux/modules/actionCreators'
+import types from '@/redux/modules/types'
 
 describe('Test Home Epics', () => {
   const epicMiddleware = createEpicMiddleware({

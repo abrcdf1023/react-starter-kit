@@ -1,5 +1,4 @@
 import { createActions } from 'redux-actions'
-import { getTypes } from '@/utils'
 
 const actionMap = {
   AMIIBO_LIST: {
@@ -15,6 +14,4 @@ const actionMap = {
   FETCH_GET_AMIIBO: undefined,
 }
 
-export const actionCreators = createActions(actionMap)
-
-export const types = getTypes(actionCreators)
+export default createActions(actionMap)
