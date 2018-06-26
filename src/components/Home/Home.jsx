@@ -1,5 +1,5 @@
 // redux
-import { amiiboListConnect } from '@/redux/modules/entities/decorators'
+import { amiiboListConnect } from '@/redux/modules/decorators'
 import * as selectors from '@/redux/modules/ui/Home/selectors'
 import { simpleConnect } from '@/utils'
 // component
