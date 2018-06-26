@@ -7,7 +7,8 @@ import * as schema from '@/api/schema'
 
 import { fetchGetAmiiboEpic } from './epics'
 import { fetchGetAmiibo } from './actions'
-import * as types from '@/redux/modules/types'
+import { ADD_AMIIBO_LIST_ENTITIES } from '@/redux/modules/entities/amiiboList/types'
+import * as types from './types'
 
 describe('Test Home Epics', () => {
   const epicMiddleware = createEpicMiddleware({
@@ -18,7 +19,7 @@ describe('Test Home Epics', () => {
   const store = mockStore()
 
   epicMiddleware.run(fetchGetAmiiboEpic)
- 
+
   afterEach(() => {
     mockAxios.reset()
     store.clearActions()
@@ -72,9 +73,9 @@ describe('Test Home Epics', () => {
     store.dispatch(fetchGetAmiibo(payload))
     setTimeout(() => {
       expect(store.getActions()).toEqual([
-        { type: types.FETCH_GET_HOME_AMIIBO, payload },
-        { type: types.FETCH_GET_HOME_AMIIBO_SUCCESS, payload: response },
-        { type: types.ADD_AMIIBO_LIST_ENTITIES, payload: entity },
+        { type: types.FETCH_GET_AMIIBO, payload },
+        { type: types.FETCH_GET_AMIIBO_SUCCESS, payload: response },
+        { type: ADD_AMIIBO_LIST_ENTITIES, payload: entity },
       ])
       done()
     }, 600)
