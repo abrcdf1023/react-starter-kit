@@ -1,15 +1,3 @@
-import { createActions } from 'redux-actions'
+import actionCreators from '@/redux/modules/actionCreators'
 
-const actionMap = {
-  ENTITIES: {
-    AMIIBO_LIST: {
-      ADD_AMIIBO_LIST_ENTITIES: undefined,
-    },
-  },
-}
-
-const actions = createActions(actionMap)
-
-export default actions
-
-export const { addAmiiboListEntities } = actions.entities.amiiboList
+export const { addAmiiboListEntities } = actionCreators.entities.amiiboList
