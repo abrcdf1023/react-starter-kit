@@ -1,5 +1,7 @@
 # react-starter-kit
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/abrcdf1023/react-starter-kit.svg)](https://greenkeeper.io/)
+
 react starter kit with scss redux react-router-dom
 
 Simple React starter kit with hot loader and router
