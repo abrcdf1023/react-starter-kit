@@ -8,9 +8,11 @@ import { getAmiiboListIsGetting, getAmiiboListError, getAmiiboListErrorMsg } fro
 import actionCreators from '@/redux/modules/actionCreators'
 
 const mapStateToProps = state => ({
-  characterList: getCharacterList(state),
+  entities: {
+    characterList: getCharacterList(state),
+    amiiboList: getAmiiboList(state),
+  },
   amiiboList: {
-    data: getAmiiboList(state),
     isGetting: getAmiiboListIsGetting(state),
     error: getAmiiboListError(state),
     errorMsg: getAmiiboListErrorMsg(state),

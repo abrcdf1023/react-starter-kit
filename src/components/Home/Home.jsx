@@ -11,8 +11,16 @@ import I18N from '@/components/I18N'
 @withHomeProps
 export default class Home extends Component {
   static propTypes = {
-    characterList: PropTypes.objectOf(PropTypes.any).isRequired,
-    amiiboList: PropTypes.objectOf(PropTypes.any).isRequired,
+    entities: PropTypes.shape({
+      characterList: PropTypes.objectOf(PropTypes.any).isRequired,
+      amiiboList: PropTypes.objectOf(PropTypes.any).isRequired,
+    }).isRequired,
+
+    amiiboList: PropTypes.shape({
+      isGetting: PropTypes.bool.isRequired,
+      error: PropTypes.bool.isRequired,
+      errorMsg: PropTypes.string,
+    }).isRequired,
 
     fetchGetCharacterList: PropTypes.func.isRequired,
     fetchGetAmiiboList: PropTypes.func.isRequired,
@@ -27,23 +35,24 @@ export default class Home extends Component {
 
   render() {
     const {
-      characterList, amiiboList, fetchGetAmiiboList, fetchGetAmiiboListCancel,
+      entities, amiiboList, fetchGetAmiiboList, fetchGetAmiiboListCancel,
     } = this.props
+
     return (
       <Container style={{ paddingTop: '2rem' }}>
         <Header>
-          I18N support
+      I18N support
         </Header>
         <I18N />
         <Header>
-          Simple fetch
+      Simple fetch
         </Header>
         <p>
-          Our async solution is using redux observable and if you dig in deep you'll find that we have resolve some annoying issue
+      Our async solution is using redux observable and if you dig in deep you'll find that we have resolve some annoying issue
         </p>
         <Select
           placeholder="Select amiibo"
-          options={_map(characterList, el => ({
+          options={_map(entities.characterList, el => ({
             key: el.key,
             value: el.name,
             text: el.name,
@@ -57,36 +66,36 @@ export default class Home extends Component {
             })
           }}
         >
-        Get Amiibo
+    Get Amiibo
         </Button>
         <Button
           onClick={() => {
             fetchGetAmiiboListCancel()
           }}
         >
-        Cancel
+    Cancel
         </Button>
         { amiiboList.error ? <Message header={amiiboList.errorMsg} negative /> : null }
         <Segment loading={amiiboList.isGetting}>
           <Card.Group>
             {
-              _map(amiiboList.data, amiibo => (
-                <Card key={amiibo.tail}>
-                  <Image src={amiibo.image} />
-                  <Card.Content>
-                    <Card.Header>
-                      {amiibo.name}
-                    </Card.Header>
-                    <Card.Meta>
-                      {amiibo.gameSeries}
-                    </Card.Meta>
-                    <Card.Description>
-                      {amiibo.amiiboSeries}
-                    </Card.Description>
-                  </Card.Content>
-                </Card>
-              ))
-            }
+          _map(entities.amiiboList, amiibo => (
+            <Card key={amiibo.tail}>
+              <Image src={amiibo.image} />
+              <Card.Content>
+                <Card.Header>
+                  {amiibo.name}
+                </Card.Header>
+                <Card.Meta>
+                  {amiibo.gameSeries}
+                </Card.Meta>
+                <Card.Description>
+                  {amiibo.amiiboSeries}
+                </Card.Description>
+              </Card.Content>
+            </Card>
+          ))
+        }
           </Card.Group>
         </Segment>
       </Container>
