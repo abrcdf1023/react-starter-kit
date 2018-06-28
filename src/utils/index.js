@@ -3,6 +3,7 @@ import { Observable } from 'rxjs'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import actionCreators from '@/redux/modules/actionCreators'
+import * as apis from '@/api'
 
 /**
  * A util reduce redux boilerplate
@@ -26,8 +27,14 @@ export const simpleConnect = (mapStateToProps, path) => {
  * @param {any} api
  * @param {string} apiName
  */
-export const createApi$ = (payload, api, apiName) => new Observable(async (observer) => {
-  const response = await _get(api, apiName)(payload).catch(err => observer.error(err))
-  observer.next(response)
-  observer.complete()
-})
+export const createApi$ = (payload, apiName) => {
+  const api = _get(apis, apiName)
+  if (api) {
+    return new Observable(async (observer) => {
+      const response = await api(payload).catch(err => observer.error(err))
+      observer.next(response)
+      observer.complete()
+    })
+  }
+  throw new Error(`Undefined api name "${apiName}" please check you have this api.`)
+}

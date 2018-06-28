@@ -5,7 +5,6 @@ import Immutable from 'immutable'
 import { routerMiddleware, routerReducer } from 'react-router-redux'
 import createHistory from 'history/createBrowserHistory'
 
-import * as api from '@/api'
 import * as schema from '@/api/schema'
 
 import entities from './modules/entities'
@@ -24,7 +23,7 @@ const initialState = Immutable.fromJS()
 // middleware
 export const history = createHistory()
 const epicMiddleware = createEpicMiddleware({
-  dependencies: { api, schema },
+  dependencies: { schema },
 })
 
 let middleware = [epicMiddleware, routerMiddleware(history)]

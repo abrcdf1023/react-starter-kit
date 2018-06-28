@@ -1,5 +1,5 @@
 // redux
-import { withAmiiboList } from '@/redux/modules/decorators'
+import { withCharacterList, withAmiiboList } from '@/redux/modules/decorators'
 import { getAmiiboListIsGetting, getAmiiboListError, getAmiiboListErrorMsg } from '@/redux/modules/ui/Home/selectors'
 import { simpleConnect } from '@/utils'
 // component
@@ -17,15 +17,18 @@ const mapStateToProps = state => ({
   error: getAmiiboListError(state),
   errorMsg: getAmiiboListErrorMsg(state),
 })
+@withCharacterList
 @withAmiiboList
 @simpleConnect(mapStateToProps, 'ui.home')
 export default class Home extends Component {
   static propTypes = {
+    characterList: PropTypes.objectOf(PropTypes.any).isRequired,
     amiiboList: PropTypes.objectOf(PropTypes.any).isRequired,
     isGetting: PropTypes.bool.isRequired,
     error: PropTypes.bool.isRequired,
     errorMsg: PropTypes.string,
 
+    fetchGetCharacterList: PropTypes.func.isRequired,
     fetchGetAmiiboList: PropTypes.func.isRequired,
     fetchGetAmiiboListCancel: PropTypes.func.isRequired,
   }
@@ -36,9 +39,13 @@ export default class Home extends Component {
 
   state={}
 
+  componentDidMount() {
+    this.props.fetchGetCharacterList()
+  }
+
   render() {
     const {
-      amiiboList, isGetting, error, errorMsg, fetchGetAmiiboList, fetchGetAmiiboListCancel,
+      characterList, amiiboList, isGetting, error, errorMsg, fetchGetAmiiboList, fetchGetAmiiboListCancel,
     } = this.props
     return (
       <Container style={{ paddingTop: '2rem' }}>
@@ -54,13 +61,11 @@ export default class Home extends Component {
         </p>
         <Select
           placeholder="Select amiibo"
-          options={[{
-            key: '1', value: 'mario', text: 'mario',
-          }, {
-            key: '2', value: 'zelda', text: 'zelda',
-          }, {
-            key: '3', value: 'error', text: 'error',
-          }]}
+          options={_map(characterList, el => ({
+            key: el.key,
+            value: el.name,
+            text: el.name,
+          }))}
           onChange={(e, data) => this.setState({ amiibo: data.value })}
         />
         <Button
