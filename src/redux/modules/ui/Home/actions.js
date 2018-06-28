@@ -1,5 +1,6 @@
 import actionCreators from '@/redux/modules/actionCreators'
 
 export const {
-  fetchGetAmiibo, fetchGetAmiiboSuccess, fetchGetAmiiboFailure, fetchGetAmiiboCancel,
+  fetchGetAmiiboList, fetchGetAmiiboListSuccess,
+  fetchGetAmiiboListFailure, fetchGetAmiiboListCancel,
 } = actionCreators.ui.home

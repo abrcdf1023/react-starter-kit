@@ -8,10 +8,10 @@ const actionMap = {
   },
   UI: {
     HOME: {
-      FETCH_GET_AMIIBO: undefined,
-      FETCH_GET_AMIIBO_SUCCESS: undefined,
-      FETCH_GET_AMIIBO_FAILURE: undefined,
-      FETCH_GET_AMIIBO_CANCEL: undefined,
+      FETCH_GET_AMIIBO_LIST: undefined,
+      FETCH_GET_AMIIBO_LIST_SUCCESS: undefined,
+      FETCH_GET_AMIIBO_LIST_FAILURE: undefined,
+      FETCH_GET_AMIIBO_LIST_CANCEL: undefined,
     },
   },
 }

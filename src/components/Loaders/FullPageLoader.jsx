@@ -2,14 +2,16 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Loader, Dimmer } from 'semantic-ui-react'
 
-import * as styles from './FullPageLoader.scss'
+import { fullpage } from './FullPageLoader.scss'
 
 const FullPageLoader = ({ message, show }) => {
   if (!show) return null
   return (
-    <div className={styles.fullpage}>
+    <div className={fullpage}>
       <Dimmer active>
-        <Loader size="large">{message}</Loader>
+        <Loader size="large">
+          {message}
+        </Loader>
       </Dimmer>
     </div>
   )

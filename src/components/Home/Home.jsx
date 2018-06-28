@@ -1,6 +1,6 @@
 // redux
-import { withAmiiboList } from '@/redux/modules/entities/amiiboList/decorators'
-import * as selectors from '@/redux/modules/ui/Home/selectors'
+import { withAmiiboList } from '@/redux/modules/decorators'
+import { getAmiiboListIsGetting, getAmiiboListError, getAmiiboListErrorMsg } from '@/redux/modules/ui/Home/selectors'
 import { simpleConnect } from '@/utils'
 // component
 import _map from 'lodash/map'
@@ -13,9 +13,9 @@ import {
 import I18N from './I18N'
 
 const mapStateToProps = state => ({
-  isGetting: selectors.getAmiiboIsGetting(state),
-  error: selectors.getAmiiboError(state),
-  errorMsg: selectors.getAmiiboErrorMsg(state),
+  isGetting: getAmiiboListIsGetting(state),
+  error: getAmiiboListError(state),
+  errorMsg: getAmiiboListErrorMsg(state),
 })
 @withAmiiboList
 @simpleConnect(mapStateToProps, 'ui.home')
@@ -26,8 +26,8 @@ export default class Home extends Component {
     error: PropTypes.bool.isRequired,
     errorMsg: PropTypes.string,
 
-    fetchGetAmiibo: PropTypes.func.isRequired,
-    fetchGetAmiiboCancel: PropTypes.func.isRequired,
+    fetchGetAmiiboList: PropTypes.func.isRequired,
+    fetchGetAmiiboListCancel: PropTypes.func.isRequired,
   }
 
   static defaultProps = {
@@ -38,7 +38,7 @@ export default class Home extends Component {
 
   render() {
     const {
-      amiiboList, isGetting, error, errorMsg, fetchGetAmiibo, fetchGetAmiiboCancel,
+      amiiboList, isGetting, error, errorMsg, fetchGetAmiiboList, fetchGetAmiiboListCancel,
     } = this.props
     return (
       <Container style={{ paddingTop: '2rem' }}>
@@ -65,7 +65,7 @@ export default class Home extends Component {
         />
         <Button
           onClick={() => {
-            fetchGetAmiibo({
+            fetchGetAmiiboList({
               name: this.state.amiibo,
             })
           }}
@@ -74,7 +74,7 @@ export default class Home extends Component {
         </Button>
         <Button
           onClick={() => {
-            fetchGetAmiiboCancel()
+            fetchGetAmiiboListCancel()
           }}
         >
         Cancel

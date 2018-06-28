@@ -1,11 +1,11 @@
 import {
-  fetchGetAmiibo,
-  fetchGetAmiiboSuccess,
-  fetchGetAmiiboFailure,
-  fetchGetAmiiboCancel,
+  fetchGetAmiiboList,
+  fetchGetAmiiboListSuccess,
+  fetchGetAmiiboListFailure,
+  fetchGetAmiiboListCancel,
 } from './actions'
 
-export const FETCH_GET_AMIIBO = fetchGetAmiibo().type
-export const FETCH_GET_AMIIBO_SUCCESS = fetchGetAmiiboSuccess().type
-export const FETCH_GET_AMIIBO_FAILURE = fetchGetAmiiboFailure().type
-export const FETCH_GET_AMIIBO_CANCEL = fetchGetAmiiboCancel().type
+export const FETCH_GET_AMIIBO_LIST = fetchGetAmiiboList().type
+export const FETCH_GET_AMIIBO_LIST_SUCCESS = fetchGetAmiiboListSuccess().type
+export const FETCH_GET_AMIIBO_LIST_FAILURE = fetchGetAmiiboListFailure().type
+export const FETCH_GET_AMIIBO_LIST_CANCEL = fetchGetAmiiboListCancel().type

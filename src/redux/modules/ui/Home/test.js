@@ -6,9 +6,9 @@ import * as api from '@/api'
 import * as schema from '@/api/schema'
 
 import { fetchGetAmiiboEpic } from './epics'
-import { fetchGetAmiibo } from './actions'
+import { fetchGetAmiiboList } from './actions'
 import { ADD_AMIIBO_LIST_ENTITIES } from '@/redux/modules/entities/amiiboList/types'
-import * as types from './types'
+import { FETCH_GET_AMIIBO_LIST, FETCH_GET_AMIIBO_LIST_SUCCESS } from './types'
 
 describe('Test Home Epics', () => {
   const epicMiddleware = createEpicMiddleware({
@@ -70,11 +70,11 @@ describe('Test Home Epics', () => {
       },
     }
     mockAxios.onGet('http://www.amiiboapi.com/api/amiibo/?name=mario').reply(200, response)
-    store.dispatch(fetchGetAmiibo(payload))
+    store.dispatch(fetchGetAmiiboList(payload))
     setTimeout(() => {
       expect(store.getActions()).toEqual([
-        { type: types.FETCH_GET_AMIIBO, payload },
-        { type: types.FETCH_GET_AMIIBO_SUCCESS, payload: response },
+        { type: FETCH_GET_AMIIBO_LIST, payload },
+        { type: FETCH_GET_AMIIBO_LIST_SUCCESS, payload: response },
         { type: ADD_AMIIBO_LIST_ENTITIES, payload: entity },
       ])
       done()

@@ -8,24 +8,24 @@ import { normalize } from 'normalizr'
 
 import { createApi$ } from '@/utils'
 import { addAmiiboListEntities } from '@/redux/modules/entities/amiiboList/actions'
-import * as actions from './actions'
-import * as types from './types'
+import { fetchGetAmiiboListSuccess, fetchGetAmiiboListFailure } from './actions'
+import { FETCH_GET_AMIIBO_LIST, FETCH_GET_AMIIBO_LIST_CANCEL } from './types'
 
 export const fetchGetAmiiboEpic = (action$, state$, { api, schema }) => action$.pipe(
-  ofType(types.FETCH_GET_AMIIBO),
+  ofType(FETCH_GET_AMIIBO_LIST),
   debounceTime(500),
   switchMap(action => createApi$(action.payload, api, 'fetchGetAmiibo')
     .pipe(
       flatMap((response) => {
         const { entities } = normalize(response.data.amiibo, schema.amiiboList)
         return [
-          actions.fetchGetAmiiboSuccess(response.data),
+          fetchGetAmiiboListSuccess(response.data),
           addAmiiboListEntities(entities),
         ]
       }),
-      catchError(error => of(actions.fetchGetAmiiboFailure(error))),
+      catchError(error => of(fetchGetAmiiboListFailure(error))),
     )),
-  takeUntil(action$.pipe(ofType(types.FETCH_GET_AMIIBO_CANCEL))),
+  takeUntil(action$.pipe(ofType(FETCH_GET_AMIIBO_LIST_CANCEL))),
   repeat(),
 )
 

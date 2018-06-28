@@ -1,7 +1,7 @@
 import Immutable from 'immutable'
 import reducer from './index'
 import { addAmiiboListEntities } from './actions'
-import * as types from './types'
+import { ADD_AMIIBO_LIST_ENTITIES } from './types'
 
 const entities = {
   amiiboList: {
@@ -27,7 +27,7 @@ const entities = {
 describe('redux modules entities amiiboList actions', () => {
   it('should add amiiboList Entities', () => {
     expect(addAmiiboListEntities(entities)).toEqual({
-      type: types.ADD_AMIIBO_LIST_ENTITIES,
+      type: ADD_AMIIBO_LIST_ENTITIES,
       payload: entities,
     })
   })
@@ -38,7 +38,7 @@ describe('redux modules entities amiiboList reducer', () => {
     expect(reducer(undefined, {})).toEqual(Immutable.fromJS({}))
   })
 
-  it(`should handle ${types.ADD_AMIIBO_LIST_ENTITIES}`, () => {
+  it(`should handle ${ADD_AMIIBO_LIST_ENTITIES}`, () => {
     expect(reducer(undefined, addAmiiboListEntities(entities)))
       .toEqual(Immutable.fromJS(entities.amiiboList))
   })
