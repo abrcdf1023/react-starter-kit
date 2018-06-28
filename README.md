@@ -1,6 +1,10 @@
 # react-starter-kit
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/abrcdf1023/react-starter-kit.svg)](https://greenkeeper.io/)
+
 This starter-kit's keypoint is to learn webpack configs and customize all you need.
+
+react starter kit with scss redux react-router-dom
 
 Also I provide a redux structure and try to show the best practice in redux.
 
