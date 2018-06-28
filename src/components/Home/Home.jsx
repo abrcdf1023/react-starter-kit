@@ -1,25 +1,18 @@
-// redux
-import withHomeProps from '@/decorators/withHomeProps'
-import { simpleConnect } from '@/utils'
-// component
 import _map from 'lodash/map'
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import {
   Container, Button, Header, Card, Image, Select, Message, Segment,
 } from 'semantic-ui-react'
+import withHomeProps from '@/decorators/withHomeProps'
 
 import I18N from './I18N'
 
 @withHomeProps
-@simpleConnect(null, 'ui.home')
 export default class Home extends Component {
   static propTypes = {
     characterList: PropTypes.objectOf(PropTypes.any).isRequired,
     amiiboList: PropTypes.objectOf(PropTypes.any).isRequired,
-    isGetting: PropTypes.bool.isRequired,
-    error: PropTypes.bool.isRequired,
-    errorMsg: PropTypes.string,
 
     fetchGetCharacterList: PropTypes.func.isRequired,
     fetchGetAmiiboList: PropTypes.func.isRequired,
@@ -34,7 +27,7 @@ export default class Home extends Component {
 
   render() {
     const {
-      characterList, amiiboList, isGetting, error, errorMsg, fetchGetAmiiboList, fetchGetAmiiboListCancel,
+      characterList, amiiboList, fetchGetAmiiboList, fetchGetAmiiboListCancel,
     } = this.props
     return (
       <Container style={{ paddingTop: '2rem' }}>
@@ -73,11 +66,11 @@ export default class Home extends Component {
         >
         Cancel
         </Button>
-        { error ? <Message header={errorMsg} negative /> : null }
-        <Segment loading={isGetting}>
+        { amiiboList.error ? <Message header={amiiboList.errorMsg} negative /> : null }
+        <Segment loading={amiiboList.isGetting}>
           <Card.Group>
             {
-              _map(amiiboList, amiibo => (
+              _map(amiiboList.data, amiibo => (
                 <Card key={amiibo.tail}>
                   <Image src={amiibo.image} />
                   <Card.Content>
