@@ -4,9 +4,9 @@ import PropTypes from 'prop-types'
 import {
   Container, Button, Header, Card, Image, Select, Message, Segment,
 } from 'semantic-ui-react'
-import withHomeProps from '@/decorators/withHomeProps'
+import withHomeProps from './withHomeProps'
 
-import I18N from './I18N'
+import I18N from '@/components/I18N'
 
 @withHomeProps
 export default class Home extends Component {
