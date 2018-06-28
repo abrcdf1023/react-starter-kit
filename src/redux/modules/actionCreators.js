@@ -9,7 +9,7 @@ const actionMap = {
       ADD_AMIIBO_LIST_ENTITIES: undefined,
     },
   },
-  UI: {
+  PAGES: {
     HOME: {
       FETCH_GET_CHARACTER_LIST: undefined,
       FETCH_GET_CHARACTER_LIST_SUCCESS: undefined,

@@ -5,4 +5,4 @@ export const {
   fetchGetCharacterListFailure,
   fetchGetAmiiboList, fetchGetAmiiboListSuccess,
   fetchGetAmiiboListFailure, fetchGetAmiiboListCancel,
-} = actionCreators.ui.home
+} = actionCreators.pages.home

@@ -8,12 +8,12 @@ import createHistory from 'history/createBrowserHistory'
 import * as schema from '@/api/schema'
 
 import entities from './modules/entities'
-import { uiEpics, ui } from './modules/ui'
+import { pagesEpics, pages } from './modules/pages'
 
 // reducer
 const reducer = combineReducers({
   entities,
-  ui,
+  pages,
   router: routerReducer,
 })
 
@@ -42,5 +42,5 @@ if (process.env.NODE_ENV !== 'production') {
 
 export const store = createStore(reducer, initialState, applyMiddleware(...middleware))
 
-const rootEpic = combineEpics(uiEpics)
+const rootEpic = combineEpics(pagesEpics)
 epicMiddleware.run(rootEpic)
