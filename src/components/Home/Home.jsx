@@ -1,6 +1,5 @@
 // redux
-import { withCharacterList, withAmiiboList } from '@/redux/modules/decorators'
-import { getAmiiboListIsGetting, getAmiiboListError, getAmiiboListErrorMsg } from '@/redux/modules/ui/Home/selectors'
+import withHomeProps from '@/decorators/withHomeProps'
 import { simpleConnect } from '@/utils'
 // component
 import _map from 'lodash/map'
@@ -12,14 +11,8 @@ import {
 
 import I18N from './I18N'
 
-const mapStateToProps = state => ({
-  isGetting: getAmiiboListIsGetting(state),
-  error: getAmiiboListError(state),
-  errorMsg: getAmiiboListErrorMsg(state),
-})
-@withCharacterList
-@withAmiiboList
-@simpleConnect(mapStateToProps, 'ui.home')
+@withHomeProps
+@simpleConnect(null, 'ui.home')
 export default class Home extends Component {
   static propTypes = {
     characterList: PropTypes.objectOf(PropTypes.any).isRequired,
@@ -31,10 +24,6 @@ export default class Home extends Component {
     fetchGetCharacterList: PropTypes.func.isRequired,
     fetchGetAmiiboList: PropTypes.func.isRequired,
     fetchGetAmiiboListCancel: PropTypes.func.isRequired,
-  }
-
-  static defaultProps = {
-    errorMsg: '',
   }
 
   state={}
