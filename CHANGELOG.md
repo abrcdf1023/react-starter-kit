@@ -1,6 +1,13 @@
+## 2.1.0 (June 30, 2018)
+
+### React-Starter-kit
+* Upgrade to babel 7
+* Split example to a new repository [react-starter-kit-example](https://github.com/abrcdf1023/react-starter-kit-example)
+* Update document
+
 ## 2.0.0 (June 14, 2018)
 
-### React-Startkit
+### React-Starter-kit
 * Fixed servals webpack config bugs.
 * Create home page to introduce our startkit.
 * Update all dependencies and devDependencies to latest version including redux-observable@next and immutable@next.
