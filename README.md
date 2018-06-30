@@ -4,13 +4,15 @@
 
 ### Why not create-react-app ?
 
-This repo's keypoint is to use the latest webpack and develop tools.
+We know that it has a script is "npm run eject" and it's official page say,
 
-With fully control webpack configs you can simply change the behaivor you want and don't need to learn any other extra tools.
+> You don’t have to ever use eject. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-Also I provide a redux structure and try to show the best practice in redux.
+So that's what's this repo doing for, we need to customize the webpack and use the latest tools include babel, eslint, jest etc.
 
-This repo is used to update your project include dependencies version and configs.
+But it also means unstable, you have to make your own decision.
+
+Also I provide a simple example try to show the best practice in react, redux and other popular tools.
 
 If you're interesting in example please checkout to [react-starter-kit-example](https://github.com/abrcdf1023/react-starter-kit-example)
 
@@ -20,6 +22,7 @@ Any advice is welcome.
 
 ### Todo list
 
+1. How to update your project
 1. jest + enzyme
 1. isomorphic (user optional)
 1. GraphyQL (user optional)
