@@ -18,12 +18,6 @@ Any advice is welcome.
 
 ### How to update your project
 
-Please Add this repo as a git remote so you can pull/rebase your fork with the latest updates:
-
-```sh
-git remote add upstream https://github.com/abrcdf1023/react-starter-kit.git
-```
-
 ### Todo list
 
 1. jest + enzyme
