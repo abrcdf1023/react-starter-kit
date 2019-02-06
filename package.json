@@ -14,7 +14,7 @@
 		"@babel/polyfill": "^7.0.0-beta.51",
 		"prop-types": "^15.6.2",
 		"react": "^16.8.1",
-		"react-dom": "^16.4.1"
+		"react-dom": "^16.8.1"
 	},
 	"devDependencies": {
 		"@babel/core": "^7.0.0-beta.51",
