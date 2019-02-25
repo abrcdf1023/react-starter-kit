@@ -11,7 +11,7 @@
 	"author": "JerryP <egroup.jerrylee@gmail.com>",
 	"license": "MIT",
 	"dependencies": {
-		"@babel/polyfill": "^7.0.0-beta.51",
+		"@babel/polyfill": "^7.2.5",
 		"prop-types": "^15.6.2",
 		"react": "^16.4.1",
 		"react-dom": "^16.4.1"
